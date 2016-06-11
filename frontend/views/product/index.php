@@ -13,14 +13,25 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="product-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <?= Html::a(Yii::t('app', 'Filter'), '#filter', ['data-toggle' => 'collapse']) ?>
+            <?= Html::a(Yii::t('app', 'Reset filter'), ['index'], ['class' => 'pull-right']) ?>
+        </div>
+        <div id="filter" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?= $this->render('_search', ['model' => $searchModel]) ?>
+            </div>
+        </div>
+    </div>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Product'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

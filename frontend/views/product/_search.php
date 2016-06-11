@@ -15,17 +15,26 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <div class="row">
+        <div class="col-sm-3">
+            <?= $form->field($model, 'id') ?>
+        </div>
 
-    <?= $form->field($model, 'name') ?>
+        <div class="col-sm-3">
+            <?= $form->field($model, 'name') ?>
+        </div>
 
-    <?= $form->field($model, 'created_at') ?>
+        <div class="col-sm-3">
+            <?= $form->field($model, 'created_at') ?>
+        </div>
 
-    <?= $form->field($model, 'updated_at') ?>
+        <div class="col-sm-3">
+            <?= $form->field($model, 'updated_at') ?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
