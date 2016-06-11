@@ -106,6 +106,7 @@ a.desc:after {
 	}
 }
 
-.nav > li > form > button:hover {
+.nav > li > form > button:hover,
+.nav > li > form > button:focus {
     text-decoration: none;
 }
