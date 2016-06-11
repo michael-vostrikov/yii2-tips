@@ -37,8 +37,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'created_at',
-            'updated_at',
+            [
+                'class' => 'common\components\grid\CombinedDataColumn',
+                'labelTemplate' => '{0} &nbsp; / &nbsp; {1}',
+                'valueTemplate' => '{0} &nbsp; / &nbsp; {1}',
+                'labels' => [
+                    'Created At',
+                    '[ Updated At ]',
+                ],
+                'attributes' => [
+                    'created_at:datetime',
+                    'updated_at:html',
+                ],
+                'values' => [
+                    null,
+                    function ($model, $_key, $_index, $_column) {
+                        return '[ ' . Yii::$app->formatter->asDatetime($model->updated_at) . ' ]';
+                    },
+                ],
+                'sortLinksOptions' => [
+                    ['class' => 'text-nowrap'],
+                    null,
+                ],
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
