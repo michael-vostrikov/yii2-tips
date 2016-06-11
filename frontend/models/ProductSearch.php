@@ -51,6 +51,11 @@ class ProductSearch extends Product
 
         $this->load($params);
 
+        // add default sorting
+        if (empty($dataProvider->sort->getAttributeOrders())) {
+            $dataProvider->query->orderBy(['id' => SORT_DESC]);
+        }
+
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
