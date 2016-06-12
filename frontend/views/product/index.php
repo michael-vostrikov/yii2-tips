@@ -33,10 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'name',
+            'user.username',
             [
                 'class' => 'common\components\grid\CombinedDataColumn',
                 'labelTemplate' => '{0} &nbsp; / &nbsp; {1}',

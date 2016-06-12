@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Product;
+use dektrium\user\models\User;
 
 /**
  * ProductSearch represents the model behind the search form about `common\models\Product`.
@@ -18,7 +19,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'user_id'], 'integer'],
             [['name', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -49,11 +50,18 @@ class ProductSearch extends Product
             'query' => $query,
         ]);
 
+
+        $query->joinWith(['user']);
+        $dataProvider->sort->attributes['user.username'] = [
+            'asc'  => ['{{%user}}.username' => SORT_ASC],
+            'desc' => ['{{%user}}.username' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         // add default sorting
         if (empty($dataProvider->sort->getAttributeOrders())) {
-            $dataProvider->query->orderBy(['id' => SORT_DESC]);
+            $dataProvider->query->orderBy(['{{%product}}.id' => SORT_DESC]);
         }
 
         if (!$this->validate()) {
@@ -65,6 +73,7 @@ class ProductSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'user_id' => $this->user_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
