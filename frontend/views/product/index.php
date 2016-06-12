@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'user.username',
+            'category.name',
             [
                 'class' => 'common\components\grid\CombinedDataColumn',
                 'labelTemplate' => '{0} &nbsp; / &nbsp; {1}',

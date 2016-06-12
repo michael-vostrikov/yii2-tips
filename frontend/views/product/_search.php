@@ -4,12 +4,14 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use dektrium\user\models\User;
+use common\models\Category;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\ProductSearch */
 /* @var $form yii\widgets\ActiveForm */
 
 $users = ArrayHelper::map(User::find()->all(), 'id', 'username');
+$categories = ArrayHelper::map(Category::find()->all(), 'id', 'name');
 ?>
 
 <div class="product-search">
@@ -41,6 +43,10 @@ $users = ArrayHelper::map(User::find()->all(), 'id', 'username');
     <div class="row">
         <div class="col-sm-6">
             <?= $form->field($model, 'user_id')->dropdownList($users, ['prompt' => Yii::t('app', '[not set]')]) ?>
+        </div>
+
+        <div class="col-sm-6">
+            <?= $form->field($model, 'category_id')->dropdownList($categories, ['prompt' => Yii::t('app', '[not set]')]) ?>
         </div>
     </div>
 

@@ -4,12 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dektrium\user\models\User;
 use yii\helpers\ArrayHelper;
+use common\models\Category;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Product */
 /* @var $form yii\widgets\ActiveForm */
 
 $users = ArrayHelper::map(User::find()->all(), 'id', 'username');
+$categories = ArrayHelper::map(Category::find()->all(), 'id', 'name');
 ?>
 
 <div class="product-form">
@@ -17,6 +19,8 @@ $users = ArrayHelper::map(User::find()->all(), 'id', 'username');
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'user_id')->dropdownList($users, ['prompt' => Yii::t('app', '[not set]')]) ?>
+
+    <?= $form->field($model, 'category_id')->dropdownList($categories, ['prompt' => Yii::t('app', '[not set]')]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

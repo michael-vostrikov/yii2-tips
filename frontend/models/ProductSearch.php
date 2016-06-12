@@ -19,7 +19,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
+            [['id', 'user_id', 'category_id'], 'integer'],
             [['name', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -57,6 +57,12 @@ class ProductSearch extends Product
             'desc' => ['{{%user}}.username' => SORT_DESC],
         ];
 
+        $query->joinWith(['category']);
+        $dataProvider->sort->attributes['category.name'] = [
+            'asc'  => ['{{%category}}.name' => SORT_ASC],
+            'desc' => ['{{%category}}.name' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         // add default sorting
@@ -74,6 +80,7 @@ class ProductSearch extends Product
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'category_id' => $this->category_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
