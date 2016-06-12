@@ -10,6 +10,9 @@ return [
             'dateFormat' => 'php:m-d-Y',
             'datetimeFormat' => 'php:m-d-Y H:i',
         ],
+        'session' => [
+            'class' => 'yii\web\DbSession',
+        ],
     ],
 
     'modules' => [
