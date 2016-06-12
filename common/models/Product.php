@@ -29,8 +29,20 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'created_at', 'updated_at'], 'required'],
-            [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'TimestampBehavior' => [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'value' => function () { return date('Y-m-d H:i:s'); },
+            ],
         ];
     }
 
@@ -42,8 +54,6 @@ class Product extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 }
