@@ -13,6 +13,10 @@ return [
         'session' => [
             'class' => 'yii\web\DbSession',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['user'],
+        ],
     ],
 
     'modules' => [
