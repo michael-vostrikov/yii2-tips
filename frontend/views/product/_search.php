@@ -42,20 +42,42 @@ $categories = ArrayHelper::map(Category::find()->all(), 'id', 'name');
     </div>
 
     <div class="row">
+        <?php
+            /*
+            $datePickerOptions = [
+                'removeButton' => '<span class="kv-date-remove kv-date-remove-custom">×</span>',
+                'pluginEvents' => [
+                    'changeDate' => "function(e) { $(this).find('.kv-date-remove-custom').toggle(e.dates.length != 0); }",
+                    'clearDate'  => "function(e) { $(this).find('.kv-date-remove-custom').toggle(e.dates.length != 0); }",
+                ],
+            ];
+            */
+
+            $dateTimePickerOptions = [
+                'removeButton' => '<span class="kv-date-remove kv-date-remove-custom">×</span>',
+                'removeButtonSelector' => '.kv-date-remove-custom',
+                'pluginEvents' => [
+                    'changeDate' => "function(e) {
+                        var isEmpty = ($(this).find('input').val() == '');
+                        $(this).find('.kv-date-remove-custom').toggle(!isEmpty);
+                    }",
+                ],
+            ];
+        ?>
         <div class="col-sm-3">
-            <?= $form->field($model, 'created_from')->widget(DateTimePicker::classname()) ?>
+            <?= $form->field($model, 'created_from')->widget(DateTimePicker::classname(), $dateTimePickerOptions) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= $form->field($model, 'created_to')->widget(DateTimePicker::classname()) ?>
+            <?= $form->field($model, 'created_to')->widget(DateTimePicker::classname(), $dateTimePickerOptions) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= $form->field($model, 'updated_from')->widget(DateTimePicker::classname()) ?>
+            <?= $form->field($model, 'updated_from')->widget(DateTimePicker::classname(), $dateTimePickerOptions) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= $form->field($model, 'updated_to')->widget(DateTimePicker::classname()) ?>
+            <?= $form->field($model, 'updated_to')->widget(DateTimePicker::classname(), $dateTimePickerOptions) ?>
         </div>
     </div>
 
