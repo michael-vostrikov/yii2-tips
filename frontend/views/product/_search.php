@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use dektrium\user\models\User;
 use common\models\Category;
+use common\widgets\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\ProductSearch */
@@ -32,21 +33,29 @@ $categories = ArrayHelper::map(Category::find()->all(), 'id', 'name');
         </div>
 
         <div class="col-sm-3">
-            <?= $form->field($model, 'created_at') ?>
+            <?= $form->field($model, 'user_id')->dropdownList($users, ['prompt' => Yii::t('app', '[not set]')]) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= $form->field($model, 'updated_at') ?>
+            <?= $form->field($model, 'category_id')->dropdownList($categories, ['prompt' => Yii::t('app', '[not set]')]) ?>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
-            <?= $form->field($model, 'user_id')->dropdownList($users, ['prompt' => Yii::t('app', '[not set]')]) ?>
+        <div class="col-sm-3">
+            <?= $form->field($model, 'created_from')->widget(DateTimePicker::classname()) ?>
         </div>
 
-        <div class="col-sm-6">
-            <?= $form->field($model, 'category_id')->dropdownList($categories, ['prompt' => Yii::t('app', '[not set]')]) ?>
+        <div class="col-sm-3">
+            <?= $form->field($model, 'created_to')->widget(DateTimePicker::classname()) ?>
+        </div>
+
+        <div class="col-sm-3">
+            <?= $form->field($model, 'updated_from')->widget(DateTimePicker::classname()) ?>
+        </div>
+
+        <div class="col-sm-3">
+            <?= $form->field($model, 'updated_to')->widget(DateTimePicker::classname()) ?>
         </div>
     </div>
 

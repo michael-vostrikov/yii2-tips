@@ -13,6 +13,12 @@ use dektrium\user\models\User;
  */
 class ProductSearch extends Product
 {
+    public $created_from;
+    public $created_to;
+    public $updated_from;
+    public $updated_to;
+
+
     /**
      * @inheritdoc
      */
@@ -20,7 +26,8 @@ class ProductSearch extends Product
     {
         return [
             [['id', 'user_id', 'category_id'], 'integer'],
-            [['name', 'created_at', 'updated_at'], 'safe'],
+            [['name'], 'safe'],
+            [['created_from', 'created_to', 'updated_from', 'updated_to'], 'safe'],
         ];
     }
 
@@ -81,11 +88,14 @@ class ProductSearch extends Product
             'id' => $this->id,
             'user_id' => $this->user_id,
             'category_id' => $this->category_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
+
+        $query->andFilterWhere(['>=', '{{%product}}.created_at', $this->created_from]);
+        $query->andFilterWhere(['<=', '{{%product}}.created_at', $this->created_to]);
+        $query->andFilterWhere(['>=', '{{%product}}.updated_at', $this->updated_from]);
+        $query->andFilterWhere(['<=', '{{%product}}.updated_at', $this->updated_to]);
 
         return $dataProvider;
     }
