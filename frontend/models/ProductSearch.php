@@ -7,6 +7,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Product;
 use dektrium\user\models\User;
+use common\components\InputTimezoneConverter;
 
 /**
  * ProductSearch represents the model behind the search form about `common\models\Product`.
@@ -38,6 +39,23 @@ class ProductSearch extends Product
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+    }
+
+    /**
+     * @inheritdoc
+     * Additionally converts attributes containing time from user timezone to application timezone
+     */
+    public function load($data, $formName = NULL)
+    {
+        $loaded = parent::load($data, $formName);
+
+        if ($loaded) {
+            $timeAttributes = ['created_from', 'created_to', 'updated_from', 'updated_to'];
+            $inputTimezoneConverter = new InputTimezoneConverter();
+            foreach ($timeAttributes as $attribute) {
+                $this->$attribute = $inputTimezoneConverter->convertValue($this->$attribute);
+            }
+        }
     }
 
     /**

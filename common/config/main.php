@@ -1,5 +1,6 @@
 <?php
 return [
+    'timeZone' => 'UTC',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 
     'components' => [
@@ -30,6 +31,8 @@ return [
         'formatter' => [
             'dateFormat' => 'php:m-d-Y',
             'datetimeFormat' => 'php:m-d-Y H:i',
+            'timeZone' => 'Europe/Moscow',
+            'defaultTimeZone' => 'UTC',
         ],
         'session' => [
             'class' => 'yii\web\DbSession',
