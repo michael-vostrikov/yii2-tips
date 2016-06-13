@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use dektrium\user\models\User;
 use yii\helpers\ArrayHelper;
 use common\models\Category;
+use common\widgets\Script;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Product */
@@ -31,3 +32,11 @@ $categories = ArrayHelper::map(Category::find()->all(), 'id', 'name');
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php Script::begin(); ?>
+<script>
+
+    console.log('Product form: $(document).ready()');
+
+</script>
+<?php Script::end(); ?>
