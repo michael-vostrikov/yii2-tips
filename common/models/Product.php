@@ -39,6 +39,9 @@ class Product extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 100],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id', 'category_id'], 'filter', 'filter' => function ($value) {
+                return ($value === '' ? null : (int)$value);
+            }],
         ];
     }
 
